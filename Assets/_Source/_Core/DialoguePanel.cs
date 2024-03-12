@@ -10,9 +10,14 @@ public class DialoguePanel : MonoBehaviour
 {
     [SerializeField] private Text messageBody;
     [SerializeField] private Text messageAuthor;
+    [SerializeField] private DialogueManager dialogueManager;
 
-    private void CloseDialoguePanel()
+    public void CloseDialoguePanel()
     {
+        dialogueManager.inDialogue = false;
+        messageBody.text = string.Empty;
+        StopCoroutine(nameof(ShowMessages));
+        StopCoroutine(nameof(LetterDelayer));
         gameObject.SetActive(false);
     }
 
