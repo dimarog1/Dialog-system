@@ -26,6 +26,11 @@ public class DialoguePanel : MonoBehaviour
     {
         foreach (var line in body)
         {
+            if (string.IsNullOrEmpty(line) || string.IsNullOrWhiteSpace(line))
+            {
+                continue;
+            }
+
             var lineCopy = line;
             if (line.EndsWith(playerDialogueSeparator))
             {
