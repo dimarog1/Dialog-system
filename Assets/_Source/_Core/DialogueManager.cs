@@ -63,7 +63,8 @@ public class DialogueManager : MonoBehaviour
             dialoguePanel.gameObject.SetActive(true);
             yield return StartCoroutine(dialoguePanel.ShowMessages(
                 _dialogueKeepersDictionary[dialogueKeeper.transform].Split('\n'),
-                dialogueKeeper.name, playerDialogueSeparator));
+                dialogueKeeper.name, // Сюда в дальнейшем можно передавать, что-то сложнее, чем просто название объекта
+                playerDialogueSeparator));
             inDialogue = false;
         }
     }

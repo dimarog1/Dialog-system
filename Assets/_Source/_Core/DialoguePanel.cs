@@ -4,12 +4,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
+using TMPro;
 
 
 public class DialoguePanel : MonoBehaviour
 {
-    [SerializeField] private Text messageBody;
-    [SerializeField] private Text messageAuthor;
+    [SerializeField] private TMP_Text messageBody;
+    [SerializeField] private TMP_Text messageAuthor;
     [SerializeField] private DialogueManager dialogueManager;
 
     public void CloseDialoguePanel()
