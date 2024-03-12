@@ -13,8 +13,6 @@ public class DialoguePanel : MonoBehaviour
 
     private void CloseDialoguePanel()
     {
-        StopCoroutine(nameof(ShowMessages));
-        StopCoroutine(nameof(LetterDelayer));
         gameObject.SetActive(false);
     }
 
@@ -39,6 +37,7 @@ public class DialoguePanel : MonoBehaviour
 
             messageBody.text = string.Empty;
         }
+
         CloseDialoguePanel();
     }
 

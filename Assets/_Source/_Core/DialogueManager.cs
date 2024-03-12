@@ -23,6 +23,8 @@ public class DialogueManager : MonoBehaviour
 
     [SerializeField] private char playerDialogueSeparator;
 
+    [HideInInspector] public bool inDialogue;
+
     private void Awake()
     {
         _mainCamera = GetComponent<Camera>();
@@ -41,26 +43,28 @@ public class DialogueManager : MonoBehaviour
 
     private void Update()
     {
-        CheckForClick();
+        if (!inDialogue && Input.GetMouseButtonDown(0))
+        {
+            StartCoroutine(StartDialogue());
+        }
     }
 
-    private void CheckForClick()
+    private IEnumerator StartDialogue()
     {
-        if (Input.GetMouseButtonDown(0))
+        var mousePos = _mainCamera.ScreenToWorldPoint(Input.mousePosition);
+        var mousePos2D = new Vector2(mousePos.x, mousePos.y);
+
+        var hit = Physics2D.Raycast(mousePos2D, Vector2.zero);
+
+        if (hit && hit.transform.TryGetComponent<DialogueKeeper>(out var dialogueKeeper) &&
+            dialogueKeeper.signs.activeSelf)
         {
-            var mousePos = _mainCamera.ScreenToWorldPoint(Input.mousePosition);
-            var mousePos2D = new Vector2(mousePos.x, mousePos.y);
-
-            var hit = Physics2D.Raycast(mousePos2D, Vector2.zero);
-
-            if (hit && hit.transform.TryGetComponent<DialogueKeeper>(out var dialogueKeeper) &&
-                dialogueKeeper.signs.activeSelf && !dialoguePanel.gameObject.activeSelf)
-            {
-                dialoguePanel.gameObject.SetActive(true);
-                StartCoroutine(dialoguePanel.ShowMessages(
-                    _dialogueKeepersDictionary[dialogueKeeper.transform].Split('\n'),
-                    dialogueKeeper.name, playerDialogueSeparator));
-            }
+            inDialogue = true;
+            dialoguePanel.gameObject.SetActive(true);
+            yield return StartCoroutine(dialoguePanel.ShowMessages(
+                _dialogueKeepersDictionary[dialogueKeeper.transform].Split('\n'),
+                dialogueKeeper.name, playerDialogueSeparator));
+            inDialogue = false;
         }
     }
 }

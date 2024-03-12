@@ -6,9 +6,11 @@ using UnityEngine.Serialization;
 
 public class DialogueKeeper : MonoBehaviour
 {
+    [HideInInspector]
     public GameObject localDialoguePopUp;
     [SerializeField] private float popUpVerticalOffset = 1.9f;
 
+    [HideInInspector]
     public GameObject signs;
     
     private void Start()
