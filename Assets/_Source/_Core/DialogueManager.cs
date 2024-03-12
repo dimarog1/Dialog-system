@@ -54,7 +54,7 @@ public class DialogueManager : MonoBehaviour
             var hit = Physics2D.Raycast(mousePos2D, Vector2.zero);
 
             if (hit && hit.transform.TryGetComponent<DialogueKeeper>(out var dialogueKeeper) &&
-                dialogueKeeper.signs.activeSelf)
+                dialogueKeeper.signs.activeSelf && !dialoguePanel.gameObject.activeSelf)
             {
                 dialoguePanel.gameObject.SetActive(true);
                 StartCoroutine(dialoguePanel.ShowMessages(
