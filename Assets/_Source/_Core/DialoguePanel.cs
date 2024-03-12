@@ -24,11 +24,11 @@ public class DialoguePanel : MonoBehaviour
             if (line.EndsWith(playerDialogueSeparator))
             {
                 lineCopy = lineCopy[..^1];
-                messageAuthor.text = companion[..1].ToUpper() + companion[1..];
+                messageAuthor.text = "Вы";
             }
             else
             {
-                messageAuthor.text = "Вы";
+                messageAuthor.text = companion[..1].ToUpper() + companion[1..];
             }
 
             yield return StartCoroutine(LetterDelayer(lineCopy));
@@ -47,7 +47,7 @@ public class DialoguePanel : MonoBehaviour
         {
             messageBody.text += letter;
 
-            yield return new WaitForSeconds(0.1f);
+            yield return new WaitForSeconds(0.04f);
         }
     }
 }
