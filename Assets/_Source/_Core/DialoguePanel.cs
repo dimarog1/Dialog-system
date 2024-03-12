@@ -14,10 +14,10 @@ public class DialoguePanel : MonoBehaviour
 
     public void CloseDialoguePanel()
     {
+        StopCoroutine(nameof(LetterDelayer));
+        StopCoroutine(nameof(ShowMessages));
         dialogueManager.inDialogue = false;
         messageBody.text = string.Empty;
-        StopCoroutine(nameof(ShowMessages));
-        StopCoroutine(nameof(LetterDelayer));
         gameObject.SetActive(false);
     }
 
@@ -36,9 +36,12 @@ public class DialoguePanel : MonoBehaviour
                 messageAuthor.text = companion[..1].ToUpper() + companion[1..];
             }
 
-            yield return StartCoroutine(LetterDelayer(lineCopy));
+            if (dialogueManager.inDialogue)
+            {
+                yield return StartCoroutine(LetterDelayer(lineCopy));
+            }
 
-            yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.Return));
+            yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.Return) || !dialogueManager.inDialogue);
 
             messageBody.text = string.Empty;
         }
@@ -48,10 +51,10 @@ public class DialoguePanel : MonoBehaviour
 
     private IEnumerator LetterDelayer(string line)
     {
+        messageBody.text = string.Empty;
         foreach (var letter in line)
         {
             messageBody.text += letter;
-
             yield return new WaitForSeconds(0.04f);
         }
     }

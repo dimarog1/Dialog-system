@@ -1448,6 +1448,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   messageBody: {fileID: 1218367489}
   messageAuthor: {fileID: 226412259}
+  dialogueManager: {fileID: 519420033}
 --- !u!1 &1148279854
 GameObject:
   m_ObjectHideFlags: 0

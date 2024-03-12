@@ -45,11 +45,11 @@ public class DialogueManager : MonoBehaviour
     {
         if (!inDialogue && Input.GetMouseButtonDown(0))
         {
-            StartCoroutine(StartDialogue());
+            StartCoroutine(TryStartDialogue());
         }
     }
 
-    private IEnumerator StartDialogue()
+    private IEnumerator TryStartDialogue()
     {
         var mousePos = _mainCamera.ScreenToWorldPoint(Input.mousePosition);
         var mousePos2D = new Vector2(mousePos.x, mousePos.y);
