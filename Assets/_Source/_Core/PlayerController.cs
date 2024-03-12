@@ -1,12 +1,11 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    [SerializeField] private float movementSpeed;
+    [SerializeField] public float movementSpeed;
     private Rigidbody2D _rigidbody2D;
+
+    [SerializeField] private DialogueManager dialogueManager;
 
     private void Awake()
     {
@@ -15,6 +14,11 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (dialogueManager.inDialogue)
+        {
+            return;
+        }
+
         var direction = Input.GetAxis("Horizontal");
         _rigidbody2D.velocity = Vector2.right * (direction * movementSpeed);
     }
