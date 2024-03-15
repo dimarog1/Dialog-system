@@ -1,1 +1,1 @@
-# Dialog system
+# Dialogue system
