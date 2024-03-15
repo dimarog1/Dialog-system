@@ -16,6 +16,7 @@ public class PlayerController : MonoBehaviour
     {
         if (dialogueManager.inDialogue)
         {
+            _rigidbody2D.velocity = Vector2.zero;
             return;
         }
 
