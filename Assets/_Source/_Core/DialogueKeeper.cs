@@ -1,25 +1,32 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 using UnityEngine;
 using UnityEngine.Serialization;
 
 public class DialogueKeeper : MonoBehaviour
 {
-    [HideInInspector]
-    public GameObject localDialoguePopUp;
-    [SerializeField] private float popUpVerticalOffset = 1.9f;
+    [SerializeField]
+    private GameObject localDialoguePopUp;
+    
+    [SerializeField]
+    public GameObject signs;
 
     [HideInInspector]
-    public GameObject signs;
+    public string dialogueBody;
     
     private void Start()
     {
-        localDialoguePopUp = Instantiate(localDialoguePopUp, Vector3.zero, 
-            Quaternion.identity, parent: transform);
-        localDialoguePopUp.transform.localPosition = new Vector3(0, popUpVerticalOffset);
+        dialogueBody = LoadDialogue($"Dialogues/{name}");
+    }
 
-        signs = localDialoguePopUp.transform.GetChild(0).gameObject;
+    private static string LoadDialogue(string path)
+    {
+        var body = Resources.Load<TextAsset>(path).text;
+        body = Regex.Replace(body, @"\t|\r", "");
+        
+        return body;
     }
 
     private void OnTriggerEnter2D(Collider2D other)
