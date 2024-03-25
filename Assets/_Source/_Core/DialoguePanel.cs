@@ -32,6 +32,7 @@ public class DialoguePanel : MonoBehaviour
             }
 
             var lineCopy = line;
+            
             if (line.EndsWith(playerDialogueSeparator))
             {
                 lineCopy = lineCopy[..^1];
